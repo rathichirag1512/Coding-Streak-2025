@@ -1,0 +1,28 @@
+class Solution {
+    public ArrayList<ArrayList<String>> anagrams(String[] arr) {
+        Map<String, ArrayList<String>> groups = new HashMap<>();
+        Set<String> added = new HashSet<>();
+        for (String str : arr) {
+            char[] charArray = str.toCharArray();
+            Arrays.sort(charArray);
+            String sortedStr = new String(charArray);
+            if (!groups.containsKey(sortedStr)) {
+                groups.put(sortedStr, new ArrayList<>());
+            }
+            groups.get(sortedStr).add(str);
+        }
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        for (String str : arr) {
+            char[] charArray = str.toCharArray();
+            Arrays.sort(charArray);
+            String sortedStr = new String(charArray);
+            if (groups.containsKey(sortedStr) && !added.contains(sortedStr)) {
+                result.add(groups.get(sortedStr));
+                added.add(sortedStr);
+            }
+        }
+
+        return result;
+    }
+}
+
