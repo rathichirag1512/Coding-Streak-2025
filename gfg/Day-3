@@ -1,0 +1,25 @@
+
+
+class Solution {
+    public long subarrayXor(int arr[], int k) {
+        HashMap<Integer, Integer> prefixXorCount = new HashMap<>();
+        int xor = 0;
+        long count = 0;
+
+        for (int num : arr) {
+            xor ^= num;
+
+            if (xor == k) {
+                count++;
+            }
+
+            if (prefixXorCount.containsKey(xor ^ k)) {
+                count += prefixXorCount.get(xor ^ k);
+            }
+
+            prefixXorCount.put(xor, prefixXorCount.getOrDefault(xor, 0) + 1);
+        }
+
+        return count;
+    }
+}
