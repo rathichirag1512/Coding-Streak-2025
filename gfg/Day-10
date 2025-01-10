@@ -1,0 +1,26 @@
+
+
+class Solution {
+    ArrayList<Integer> countDistinct(int arr[], int k) {
+        // code here
+        ArrayList<Integer> result = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        int j = 0;
+        
+        for(int i=0;i<arr.length;i++){
+            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+            
+            if(i-j+1 == k){
+                result.add(map.size());
+                map.put(arr[j], map.get(arr[j]) - 1);
+                if(map.get(arr[j]) == 0){
+                    map.remove(arr[j]);
+                }
+                j++;
+            }
+        }
+        
+        return result;
+    }
+}
