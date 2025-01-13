@@ -1,0 +1,29 @@
+
+
+// User function Template for Java
+
+class Solution {
+
+    public int maxWater(int arr[]) {
+        // Code Here
+        int maxArea = 0;
+        int left = 0;
+        int right = arr.length - 1;
+        
+        while (left < right) {
+            int minHeight = Math.min(arr[left], arr[right]);
+            int width = right - left;
+            int currentArea = minHeight * width;
+            maxArea = Math.max(maxArea, currentArea);
+            
+            if (arr[left] < arr[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        
+        return maxArea;
+    }
+}
+    
