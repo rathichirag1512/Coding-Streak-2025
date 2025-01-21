@@ -1,0 +1,55 @@
+
+
+/*node class of the linked list
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+
+*/
+
+class Solution {
+    static void swap(Node a, Node b) {
+        int temp = a.data;
+        a.data = b.data;
+        b.data = temp;
+    }
+    
+    public static Node reverseKGroup(Node head, int k) {
+        if (head == null || k == 1) {
+            return head;
+        }
+
+        Deque<Node> dq = new LinkedList<>();
+        Node curr = head;
+
+        while (curr != null) {
+            int count = 0;
+
+            // Push k nodes into the deque
+            while (curr != null && count < k) {
+                dq.addLast(curr);
+                curr = curr.next;
+                count++;
+            }
+
+            // Swap first and last nodes in the deque
+            while (!dq.isEmpty()) {
+                Node front = dq.peekFirst();
+                Node last = dq.peekLast();
+                swap(front, last); 
+              
+                if (!dq.isEmpty()) dq.pollFirst();
+                if (!dq.isEmpty()) dq.pollLast();
+            }
+        }
+
+        return head;
+    }
+}
