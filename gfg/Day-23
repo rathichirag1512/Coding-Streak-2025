@@ -1,0 +1,55 @@
+
+
+/*linked list node
+class Node {
+    int data;
+    Node next;
+    Node random;
+
+    Node(int x) {
+        data = x;
+        next = null;
+        random = null;
+    }
+}
+*/
+class Solution {
+    public Node cloneLinkedList(Node head) {
+        // code here
+        if (head == null) return null;
+
+        // Step 1: Insert copied nodes after each original node
+        Node curr = head;
+        while (curr != null) {
+            Node copy = new Node(curr.data);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+        }
+
+        // Step 2: Assign random pointers to the copied nodes
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        // Step 3: Separate the copied list from the original list
+        Node dummy = new Node(0);
+        Node copyHead = dummy, copyTail = dummy;
+        curr = head;
+
+        while (curr != null) {
+            copyTail.next = curr.next;
+            copyTail = copyTail.next;
+
+            curr.next = curr.next.next;
+            curr = curr.next;
+        }
+
+        return dummy.next;
+    }
+    
+}
