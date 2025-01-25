@@ -1,0 +1,46 @@
+
+/* class Node
+{
+    int data;
+    Node next;
+
+    Node(int x)
+    {
+        data = x;
+        next = null;
+    }
+}*/
+
+class Solution {
+    public static Node findFirstNode(Node head) {
+         if (head == null || head.next == null) return null;
+
+        Node slow = head, fast = head;
+
+        // Step 1: Detect the loop
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            // If slow and fast meet, loop is detected
+            if (slow == fast) {
+                break;
+            }
+        }
+
+        // If no loop is found, return null
+        if (fast == null || fast.next == null) {
+            return null;
+        }
+
+        // Step 2: Find the first node of the loop
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        // Both pointers meet at the first node of the loop
+        return slow;
+    }
+}
